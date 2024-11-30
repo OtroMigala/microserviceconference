@@ -1,0 +1,74 @@
+package domain;
+
+import com.github.manosbatsis.scrudbeans.annotation.ScrudBean;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * La clase {@code Conference} representa una conferencia con información sobre el nombre,
+ * las sesiones asociadas y los participantes.
+ * Está preparada para ser usada con Spring Boot, JPA y ScrudBeans.
+ */
+@Entity
+@Table(name = "conferences")
+@ScrudBean  // Anotación ScrudBeans
+public class Conference {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "conference_id")
+    private List<Session> mySessions = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "conference_id")
+    private List<Participant> myParticipants = new ArrayList<>();
+
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Session> getMySessions() {
+        return mySessions;
+    }
+
+    public void setMySessions(List<Session> mySessions) {
+        this.mySessions = mySessions;
+    }
+
+    public List<Participant> getMyParticipants() {
+        return myParticipants;
+    }
+
+    public void setMyParticipants(List<Participant> myParticipants) {
+        this.myParticipants = myParticipants;
+    }
+
+    @Override
+    public String toString() {
+        return "Conference{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mySessions=" + mySessions +
+                ", myParticipants=" + myParticipants +
+                '}';
+    }
+}

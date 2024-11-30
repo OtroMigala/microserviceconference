@@ -1,0 +1,63 @@
+package domain;
+
+import com.github.manosbatsis.scrudbeans.annotation.ScrudBean;
+import jakarta.persistence.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * Representa un participante en una conferencia con identificación única.
+ * Está preparado para trabajar con ScrudBeans y JPA.
+ */
+@Entity
+@Table(name = "participants")
+@ScrudBean // Anotación de ScrudBeans para generar código CRUD automáticamente
+public class Participant {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // JPA se encarga del ID autoincrementable
+    private Long id; // Cambié el tipo de 'int' a 'Long' para que sea compatible con JPA
+
+    private String name;
+    private String email;
+
+    // Constructor por defecto
+    public Participant() {
+    }
+
+    // Constructor parametrizado
+    public Participant(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    // Métodos getter y setter
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Participant{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
+    }
+}
